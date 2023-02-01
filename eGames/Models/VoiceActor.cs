@@ -5,7 +5,7 @@ namespace eGames.Models
     public class VoiceActor
     {
         [Key] 
-        public int ActorId { get; set; }
+        public int Id { get; set; }
 
         public string ProfilePictureURL { get; set; }
         public string FullName { get; set; }

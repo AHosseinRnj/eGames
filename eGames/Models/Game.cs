@@ -1,4 +1,4 @@
-﻿using eGames.Data;
+﻿using eGames.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace eGames.Models

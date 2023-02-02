@@ -10,5 +10,8 @@ namespace eGames.Models
         public string ProfilePictureURL { get; set; }
         public string FullName { get; set; }
         public string Biography { get; set; }
+
+        // Relationships
+        public List<VoiceActor_Game> VoiceActors_Games { get; set; }
     }
 }

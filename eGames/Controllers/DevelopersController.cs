@@ -15,7 +15,7 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = await _appDbContext.Developers.ToListAsync();
+            var allDevelopers = await _appDbContext.Developers.ToListAsync();
             return View();
         }
     }

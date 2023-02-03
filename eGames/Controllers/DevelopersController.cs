@@ -1,5 +1,6 @@
 ﻿using eGames.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
@@ -12,9 +13,9 @@ namespace eGames.Controllers
             _appDbContext = appDbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _appDbContext.Developers.ToList();
+            var data = await _appDbContext.Developers.ToListAsync();
             return View();
         }
     }

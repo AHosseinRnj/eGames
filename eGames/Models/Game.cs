@@ -17,7 +17,6 @@ namespace eGames.Models
         public GameCategory Category { get; set; }
 
         // Relationships
-        public List<VoiceActor_Game> VoiceActors_Games { get; set; }
         public List<Developer_Game> Developers_Games { get; set; }
 
         // Platform

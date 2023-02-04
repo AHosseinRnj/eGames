@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Platform>
+
+@{
+    ViewData["Title"] = "List of Platforms";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Logo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.URL)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var platform in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img src="@platform.Logo" style="max-width:120px;max-height:120px" />
+                        </td>
+                        <td class="align-middle">
+                            @platform.Name
+                        </td>
+                        <td class="align-middle">
+                            <a href="@platform.URL" target="_blank" rel="noopener noreferrer">Open</a>
+                        </td>
+                        <td class="align-middle">
+                            @platform.Description
+                        </td>
+                        <td class="align-middle col-md-4">
+                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a>
+                            <a class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -16,7 +16,7 @@ namespace eGames.Controllers
         public async Task<IActionResult> Index()
         {
             var allPlatforms = await _appDbContext.Platforms.ToListAsync();
-            return View();
+            return View(allPlatforms);
         }
     }
 }

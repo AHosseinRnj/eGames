@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Publisher>
+
+@{
+    ViewData["Title"] = "List of Publishers";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Logo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var publisher in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img src="@publisher.Logo" style="max-width:120px;max-height:120px" />
+                        </td>
+                        <td class="align-middle">
+                            @publisher.Name
+                        </td>
+                        <td class="align-middle">
+                            @publisher.Description
+                        </td>
+                        <td class="align-middle col-md-4">
+                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a>
+                            <a class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

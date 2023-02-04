@@ -23,7 +23,7 @@
 
                         @*
                         <li class="navbar-nav">
-                            <a class="nav-link text-dark" asp-controller="Games" asp-action="Index"><i class="bi bi-controller"></i> Games</a>
+                        <a class="nav-link text-dark" asp-controller="Games" asp-action="Index"><i class="bi bi-controller"></i> Games</a>
                         </li>*@
 
                         <li class="nav-item dropdown">
@@ -39,15 +39,9 @@
 
                     </ul>
 
-                    <form class="form-inline my-2 my-lg-0" asp-controller="Games" asp-action="Filter">
-                        <div class="row g-2 align-items-center">
-                            <div class="col-auto">
-                                <input name="searchString" type="text" class="form-control" placeholder="Search for a game..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-                            </div>
-                        </div>
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Games" asp-action="Filter" style="display:flex">
+                        <input name="searchString" type="text" class="form-control" placeholder="Search for a game..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
 
                 </div>

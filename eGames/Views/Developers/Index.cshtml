@@ -16,17 +16,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var developer in Model)
                 {
                     <tr>
                         <td class="align-middle">
-                            <img src="@item.ProfilePictureURL" style="max-width:120px;max-height:120px" />
+                            <img src="@developer.ProfilePictureURL" style="max-width:120px;max-height:120px" />
                         </td>
                         <td class="align-middle">
-                            @item.FullName
+                            @developer.FullName
                         </td>
                         <td class="align-middle">
-                            @item.Biography
+                            @developer.Biography
                         </td>
                         <td class="align-middle col-md-4">
                             <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a>

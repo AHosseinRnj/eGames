@@ -15,7 +15,7 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allGames = await _appDbContext.Games.ToListAsync();
+            var allGames = await _appDbContext.Games.Include(p => p.Platform).OrderBy(p => p.Name).ToListAsync();
             return View(allGames);
         }
     }

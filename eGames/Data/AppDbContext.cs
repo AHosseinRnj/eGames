@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,7 +15,7 @@ namespace eGames.Data
                 dg.DeveloperId,
                 dg.GameId
             });
-            modelBuilder.Entity<Developer_Game>().HasOne(g => g.Game).WithMany(dg => dg.Developers_Games).HasForeignKey(g=>g.GameId);
+            modelBuilder.Entity<Developer_Game>().HasOne(g => g.Game).WithMany(dg => dg.Developers_Games).HasForeignKey(g => g.GameId);
             modelBuilder.Entity<Developer_Game>().HasOne(g => g.Developer).WithMany(dg => dg.Developers_Games).HasForeignKey(g => g.DeveloperId);
 
 

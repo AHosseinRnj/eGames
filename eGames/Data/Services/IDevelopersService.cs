@@ -4,7 +4,7 @@ namespace eGames.Data.Services
 {
     public interface IDevelopersService
     {
-        IEnumerable<Developer> GetDevelopers();
+        Task<IEnumerable<Developer>> GetDevelopers();
         Developer GetDeveloperById(int id);
         void AddDeveloper(Developer developer);
         void RemoveDeveloper(int id);

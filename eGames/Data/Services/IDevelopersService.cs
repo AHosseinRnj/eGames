@@ -7,7 +7,7 @@ namespace eGames.Data.Services
         Task<IEnumerable<Developer>> GetDevelopersAsync();
         Task<Developer> GetDeveloperByIdAsync(int id);
         Task AddDeveloperAsync(Developer developer);
-        void RemoveDeveloper(int id);
+        Task RemoveDeveloperAsync(int id);
         Task<Developer> UpdateDeveloperAsync(int id, Developer newDeveloper);
     }
 }

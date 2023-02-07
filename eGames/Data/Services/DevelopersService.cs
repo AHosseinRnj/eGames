@@ -30,9 +30,11 @@ namespace eGames.Data.Services
             return result;
         }
 
-        public void RemoveDeveloper(int id)
+        public async Task RemoveDeveloperAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await GetDeveloperByIdAsync(id);
+            _appDbContext.Developers.Remove(result);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task<Developer> UpdateDeveloperAsync(int id, Developer newDeveloper)

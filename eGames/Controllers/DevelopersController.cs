@@ -68,5 +68,29 @@ namespace eGames.Controllers
             await _developersService.UpdateDeveloperAsync(id, developer);
             return RedirectToAction("Index");
         }
+
+        // Get: Developers/Delete(id)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+
+            if (developerDetails == null)
+                return View("NotFound");
+
+            return View(developerDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+
+            if (developerDetails == null)
+                return View("NotFound");
+
+            await _developersService.RemoveDeveloperAsync(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

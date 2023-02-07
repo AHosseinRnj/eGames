@@ -13,29 +13,29 @@
             <div class="col-md-8 offset-2">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group text-center">
+                        <img id="ProfilePicturePreview" style="max-width:300px; max-height:300px; border: 1px solid #ddd; border-radius: 10px; padding: 5px; box-shadow: 0 0 10px #ddd;" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfilePictureURL" class="form-label"></label>
+                        <input asp-for="ProfilePictureURL" class="form-control" />
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Biography" class="form-label"></label>
+                        <input asp-for="Biography" class="form-control" />
+                        <span asp-validation-for="Biography" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top:10px">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-end" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
                 </form>
-                <div class="form-group text-center">
-                    <img id="ProfilePicturePreview" style="max-width:300px; max-height:300px; border: 1px solid #ddd; border-radius: 10px; padding: 5px; box-shadow: 0 0 10px #ddd;" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="ProfilePictureURL" class="form-label"></label>
-                    <input asp-for="ProfilePictureURL" class="form-control"/>
-                    <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FullName" class="form-label"></label>
-                    <input asp-for="FullName" class="form-control" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Biography" class="form-label"></label>
-                    <input asp-for="Biography" class="form-control" />
-                    <span asp-validation-for="Biography" class="text-danger"></span>
-                </div>
-                <div class="form-group" style="margin-top:10px">
-                    <input type="submit" value="Create" class="btn btn-outline-success float-end" />
-                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                </div>
             </div>
         </div>
     </div>
@@ -44,7 +44,12 @@
 
 @section Scripts{
     <script>
-        $("#ProfilePictureURL").on("change", function(){
+        $(document).ready(function () {
+            var preview = document.getElementById('ProfilePicturePreview');
+            preview.src = $("#ProfilePictureURL").val();
+        })
+
+        $("#ProfilePictureURL").on("change", function () {
             var preview = document.getElementById('ProfilePicturePreview');
             preview.src = $(this).val();
         })

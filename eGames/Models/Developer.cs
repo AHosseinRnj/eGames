@@ -20,6 +20,6 @@ namespace eGames.Models
         public string Biography { get; set; }
 
         // Relationships
-        public List<Developer_Game> Developers_Games { get; set; }
+        public List<Developer_Game>? Developers_Games { get; set; }
     }
 }

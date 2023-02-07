@@ -13,6 +13,11 @@ namespace eGames.Controllers
             _appDbContext = appDbContext;
         }
 
+        public IActionResult NotFound()
+        {
+            return View("NotFound");
+        }
+
         public async Task<IActionResult> Index()
         {
             var allGames = await _appDbContext.Games.Include(p => p.Platform).OrderBy(p => p.Name).ToListAsync();

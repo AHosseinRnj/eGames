@@ -1,0 +1,41 @@
+﻿body {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.error-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.error-image {
+    width: 200px;
+    height: 200px;
+    background-image: url(https://i.imgur.com/lKJiT77.png);
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.return-home-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}

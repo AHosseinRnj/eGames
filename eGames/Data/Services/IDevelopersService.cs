@@ -8,6 +8,6 @@ namespace eGames.Data.Services
         Task<Developer> GetDeveloperByIdAsync(int id);
         Task AddDeveloperAsync(Developer developer);
         void RemoveDeveloper(int id);
-        Developer UpdateDeveloper(int id, Developer newDeveloper);
+        Task<Developer> UpdateDeveloperAsync(int id, Developer newDeveloper);
     }
 }

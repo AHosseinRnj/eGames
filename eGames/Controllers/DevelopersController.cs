@@ -43,9 +43,30 @@ namespace eGames.Controllers
             var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
 
             if (developerDetails == null)
-                return View("Empty");
+                return View("NotFound");
 
             return View(developerDetails);
+        }
+
+        // Get: Developers/Edit(id)
+        public async Task<IActionResult> Edit(int id)
+        {
+            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+
+            if (developerDetails == null)
+                return View("NotFound");
+
+            return View(developerDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "ProfilePictureURL", "FullName", "Biography")] Developer developer)
+        {
+            if (!ModelState.IsValid)
+                return View(developer);
+
+            await _developersService.UpdateDeveloperAsync(id, developer);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -35,9 +35,11 @@ namespace eGames.Data.Services
             throw new NotImplementedException();
         }
 
-        public Developer UpdateDeveloper(int id, Developer newDeveloper)
+        public async Task<Developer> UpdateDeveloperAsync(int id, Developer newDeveloper)
         {
-            throw new NotImplementedException();
+            _appDbContext.Update(newDeveloper);
+            await _appDbContext.SaveChangesAsync();
+            return newDeveloper;
         }
     }
 }

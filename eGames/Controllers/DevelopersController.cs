@@ -1,5 +1,6 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
+using eGames.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,5 +26,15 @@ namespace eGames.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("ProfilePictureURL", "FullName", "Biography")] Developer developer)
+        {
+            if (!ModelState.IsValid)
+                return View(developer);
+
+            _developersService.AddDeveloper(developer);
+            return RedirectToAction("Index");
+        }
     }
-}   
+}

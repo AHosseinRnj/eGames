@@ -14,7 +14,8 @@ namespace eGames.Data.Services
 
         public void AddDeveloper(Developer developer)
         {
-            throw new NotImplementedException();
+            _appDbContext.Add(developer);
+            _appDbContext.SaveChanges();
         }
 
         public Developer GetDeveloperById(int id)

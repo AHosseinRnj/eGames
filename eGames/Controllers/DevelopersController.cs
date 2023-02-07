@@ -17,7 +17,7 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allDevelopers = await _developersService.GetDevelopers();
+            var allDevelopers = await _developersService.GetDevelopersAsync();
             return View(allDevelopers);
         }
 
@@ -33,8 +33,19 @@ namespace eGames.Controllers
             if (!ModelState.IsValid)
                 return View(developer);
 
-            _developersService.AddDeveloper(developer);
+            await _developersService.AddDeveloperAsync(developer);
             return RedirectToAction("Index");
+        }
+
+        // Get: Developers/Details/(id)
+        public async Task<IActionResult> Details(int id)
+        {
+            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+
+            if (developerDetails == null)
+                return View("Empty");
+
+            return View(developerDetails);
         }
     }
 }

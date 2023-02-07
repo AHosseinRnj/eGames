@@ -12,18 +12,19 @@ namespace eGames.Data.Services
             _appDbContext = appDbContext;
         }
 
-        public void AddDeveloper(Developer developer)
+        public async Task AddDeveloperAsync(Developer developer)
         {
-            _appDbContext.Add(developer);
-            _appDbContext.SaveChanges();
+            await _appDbContext.AddAsync(developer);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public Developer GetDeveloperById(int id)
+        public async Task<Developer> GetDeveloperByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _appDbContext.Developers.FirstOrDefaultAsync(n => n.Id == id);
+            return result;
         }
 
-        public async Task<IEnumerable<Developer>> GetDevelopers()
+        public async Task<IEnumerable<Developer>> GetDevelopersAsync()
         {
             var result = await _appDbContext.Developers.ToListAsync();
             return result;

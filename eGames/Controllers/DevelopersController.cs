@@ -19,5 +19,11 @@ namespace eGames.Controllers
             var allDevelopers = await _developersService.GetDevelopers();
             return View(allDevelopers);
         }
+
+        // Get: Developers/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
-}
+}   

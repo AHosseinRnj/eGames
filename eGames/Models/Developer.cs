@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eGames.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eGames.Models
 {
-    public class Developer
+    public class Developer : IEntityBase
     {
         [Key]
         public int Id { get; set; }

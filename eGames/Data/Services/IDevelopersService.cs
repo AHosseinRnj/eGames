@@ -1,13 +1,7 @@
-﻿using eGames.Models;
+﻿using eGames.Data.Base;
+using eGames.Models;
 
 namespace eGames.Data.Services
 {
-    public interface IDevelopersService
-    {
-        Task<IEnumerable<Developer>> GetDevelopersAsync();
-        Task<Developer> GetDeveloperByIdAsync(int id);
-        Task AddDeveloperAsync(Developer developer);
-        Task RemoveDeveloperAsync(int id);
-        Task<Developer> UpdateDeveloperAsync(int id, Developer newDeveloper);
-    }
+    public interface IDevelopersService : IEntityBaseRepository<Developer> { }
 }

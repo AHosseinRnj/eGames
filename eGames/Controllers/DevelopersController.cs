@@ -17,7 +17,7 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allDevelopers = await _developersService.GetDevelopersAsync();
+            var allDevelopers = await _developersService.GetAllAsync();
             return View(allDevelopers);
         }
 
@@ -33,14 +33,14 @@ namespace eGames.Controllers
             if (!ModelState.IsValid)
                 return View(developer);
 
-            await _developersService.AddDeveloperAsync(developer);
+            await _developersService.AddAsync(developer);
             return RedirectToAction("Index");
         }
 
         // Get: Developers/Details/(id)
         public async Task<IActionResult> Details(int id)
         {
-            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+            var developerDetails = await _developersService.GetByIdAsync(id);
 
             if (developerDetails == null)
                 return View("NotFound");
@@ -51,7 +51,7 @@ namespace eGames.Controllers
         // Get: Developers/Edit(id)
         public async Task<IActionResult> Edit(int id)
         {
-            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+            var developerDetails = await _developersService.GetByIdAsync(id);
 
             if (developerDetails == null)
                 return View("NotFound");
@@ -65,14 +65,14 @@ namespace eGames.Controllers
             if (!ModelState.IsValid)
                 return View(developer);
 
-            await _developersService.UpdateDeveloperAsync(id, developer);
+            await _developersService.UpdateAsync(id, developer);
             return RedirectToAction("Index");
         }
 
         // Get: Developers/Delete(id)
         public async Task<IActionResult> Delete(int id)
         {
-            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+            var developerDetails = await _developersService.GetByIdAsync(id);
 
             if (developerDetails == null)
                 return View("NotFound");
@@ -83,12 +83,12 @@ namespace eGames.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var developerDetails = await _developersService.GetDeveloperByIdAsync(id);
+            var developerDetails = await _developersService.GetByIdAsync(id);
 
             if (developerDetails == null)
                 return View("NotFound");
 
-            await _developersService.RemoveDeveloperAsync(id);
+            await _developersService.RemoveAsync(id);
 
             return RedirectToAction("Index");
         }

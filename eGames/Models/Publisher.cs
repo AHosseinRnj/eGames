@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eGames.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eGames.Models
 {
-    public class Publisher
+    public class Publisher : IEntityBase
     {
         [Key]
         public int Id { get; set; }

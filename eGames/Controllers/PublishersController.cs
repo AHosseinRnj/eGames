@@ -1,4 +1,5 @@
 ﻿using eGames.Data;
+using eGames.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,16 +7,16 @@ namespace eGames.Controllers
 {
     public class PublishersController : Controller
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly IPublishersService _publishersService;
 
-        public PublishersController(AppDbContext appDbContext)
+        public PublishersController(IPublishersService publishersService)
         {
-            _appDbContext = appDbContext;
+            _publishersService = publishersService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allPublishers = await _appDbContext.Publishers.ToListAsync();
+            var allPublishers = await _publishersService.GetAllAsync();
             return View(allPublishers);
         }
     }

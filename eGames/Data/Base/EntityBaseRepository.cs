@@ -1,30 +1,45 @@
-﻿namespace eGames.Data.Base
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace eGames.Data.Base
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
-        public Task AddAsync(T entity)
+        private readonly AppDbContext _appDbContext;
+        public EntityBaseRepository(AppDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _appDbContext.Set<T>().AddAsync(entity);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Set<T>().ToListAsync();
         }
 
-        public Task RemoveAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public Task<T> UpdateAsync(int id, T entity)
+        public async Task RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetByIdAsync(id);
+            EntityEntry entry = _appDbContext.Entry<T>(entity);
+            entry.State = EntityState.Deleted;
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(int id, T entity)
+        {
+            EntityEntry entry = _appDbContext.Entry<T>(entity);
+            entry.State = EntityState.Modified;
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

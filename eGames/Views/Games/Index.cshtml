@@ -7,48 +7,32 @@
 <div class="row">
     @foreach (var game in Model)
     {
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
-                            <p class="card-text">
-                                <h5 class="card-title">
-                                    @game.Name
-                                    <a class="text-white float-end"><i class="bi bi-pencil-square"></i></a>
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="@game.ImageURL" width="100%" alt="@game.Name">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <p class="card-text">@game.Description</p>
-                            <p class="card-text"><b>Platform: </b>@game.Platform.Name</p>
-                            <p class="card-text"><b>Category: </b>@game.Category</p>
-                            <p class="card-text"><b>Release Date: </b>@game.ReleaseDate.ToString("dd MMM yyyy")</p>
-                            <p class="card-text">
-                                <b>Status: </b>
-                                @if (DateTime.Now >= game.ReleaseDate)
-                                {
-                                    <span class="badge bg-success text-white">AVAILABLE</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-primary text-white">UPCOMING</span>
-                                }
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card-footer ">
-                            <p class="card-text">
-                                <a class="btn btn-outline-primary float-end"><i class="bi bi-eye-fill"></i> Show Details</a>
-                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (Price @game.Price.ToString("c"))</a>
-                            </p>
-                        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="margin-bottom: 20px">
+            <div class="card">
+                <img src="@game.ImageURL" class="card-img-top img-fluid position-relative" alt="Game cover">
+                <a class="position-absolute text-white" style="top: 5px; right: 10px; font-size: 2em"><i class="bi bi-pencil-square"></i></a>
+                <div class="card-body">
+                    <h5 class="card-title text-">@game.Name</h5>
+                    <p class="card-text">@game.Description</p>
+                    <p class="card-text"><small class="text-muted">Platform: @game.Platform.Name</small></p>
+                    <p class="card-text"><small class="text-muted">Category: @game.Category</small></p>
+                    <p class="card-text"><small class="text-muted">Release Date: @game.ReleaseDate.ToString("yyyy-MM-dd")</small></p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Status:
+                            @if (DateTime.Now >= game.ReleaseDate)
+                            {
+                                <span class="badge bg-success text-white">AVAILABLE</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">UPCOMING</span>
+                            }
+                        </small>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a class="btn btn-outline-primary"><i class="bi bi-eye-fill"></i> Show Details</a>
+                        <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (Price $@game.Price)</a>
                     </div>
                 </div>
             </div>

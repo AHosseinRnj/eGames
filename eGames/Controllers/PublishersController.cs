@@ -19,5 +19,16 @@ namespace eGames.Controllers
             var allPublishers = await _publishersService.GetAllAsync();
             return View(allPublishers);
         }
+
+        // Get: Publishers/Details/(id)
+        public async Task<IActionResult> Details(int id)
+        {
+            var publisherDetails = await _publishersService.GetByIdAsync(id);
+
+            if (publisherDetails == null)
+                return View("NotFound");
+
+            return View(publisherDetails);
+        }
     }
 }

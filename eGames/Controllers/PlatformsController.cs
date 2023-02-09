@@ -36,5 +36,16 @@ namespace eGames.Controllers
             await _platformsService.AddAsync(platform);
             return RedirectToAction("Index");
         }
+
+        // Get: Platforms/Details/(id)
+        public async Task<IActionResult> Details(int id)
+        {
+            var PlatformDetails = await _platformsService.GetByIdAsync(id);
+
+            if (PlatformDetails == null)
+                return View("NotFound");
+
+            return View(PlatformDetails);
+        }
     }
 }

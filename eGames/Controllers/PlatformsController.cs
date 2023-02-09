@@ -47,5 +47,26 @@ namespace eGames.Controllers
 
             return View(PlatformDetails);
         }
+
+        // Get: Publishers/Edit(id)
+        public async Task<IActionResult> Edit(int id)
+        {
+            var PlatformDetails = await _platformsService.GetByIdAsync(id);
+
+            if (PlatformDetails == null)
+                return View("NotFound");
+
+            return View(PlatformDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "Logo", "Name", "URL", "Description")] Platform platform)
+        {
+            if (!ModelState.IsValid)
+                return View(platform);
+
+            await _platformsService.UpdateAsync(id, platform);
+            return RedirectToAction("Index");
+        }
     }
 }

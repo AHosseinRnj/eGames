@@ -1,5 +1,6 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
+using eGames.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,22 @@ namespace eGames.Controllers
         {
             var allPlatforms = await _platformsService.GetAllAsync();
             return View(allPlatforms);
+        }
+
+        // Get: Platforms/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Logo", "Name", "URL", "Description")] Platform platform)
+        {
+            if (!ModelState.IsValid)
+                return View(platform);
+
+            await _platformsService.AddAsync(platform);
+            return RedirectToAction("Index");
         }
     }
 }

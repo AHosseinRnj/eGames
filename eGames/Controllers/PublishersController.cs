@@ -68,5 +68,29 @@ namespace eGames.Controllers
             await _publishersService.UpdateAsync(id, publisher);
             return RedirectToAction("Index");
         }
+
+        // Get: Publishers/Delete(id)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var publisherDetails = await _publishersService.GetByIdAsync(id);
+
+            if (publisherDetails == null)
+                return View("NotFound");
+
+            return View(publisherDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var publisherDetails = await _publishersService.GetByIdAsync(id);
+
+            if (publisherDetails == null)
+                return View("NotFound");
+
+            await _publishersService.RemoveAsync(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,49 @@
+﻿@model Publisher
+
+@{
+    ViewData["Title"] = "Delete " + Model.Name;
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete confirmation for @Model.Name</h1>
+        </p>
+        <div class="row" style="margin-top:35px">
+            <div class="col-md-8 offset-2">
+                <div class="form-group text-center">
+                    <img id="LogoPreview" style="max-width:300px; max-height:300px; border: 1px solid #ddd; border-radius: 10px; padding: 5px; box-shadow: 0 0 10px #ddd;" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Logo" class="form-label"></label>
+                    <input asp-for="Logo" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label"></label>
+                    <input asp-for="Description" class="form-control" readonly />
+                </div>
+                <div class="form-group" style="margin-top:10px">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id"/>
+                        <input type="submit" value="Confirm" class="btn btn-danger float-end"/>
+                    </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var preview = document.getElementById('LogoPreview');
+            preview.src = $("#Logo").val();
+        })
+    </script>
+}

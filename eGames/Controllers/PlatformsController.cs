@@ -48,7 +48,7 @@ namespace eGames.Controllers
             return View(PlatformDetails);
         }
 
-        // Get: Publishers/Edit(id)
+        // Get: Platforms/Edit(id)
         public async Task<IActionResult> Edit(int id)
         {
             var PlatformDetails = await _platformsService.GetByIdAsync(id);
@@ -66,6 +66,30 @@ namespace eGames.Controllers
                 return View(platform);
 
             await _platformsService.UpdateAsync(id, platform);
+            return RedirectToAction("Index");
+        }
+
+        // Get: Platforms/Delete(id)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var PlatformDetails = await _platformsService.GetByIdAsync(id);
+
+            if (PlatformDetails == null)
+                return View("NotFound");
+
+            return View(PlatformDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var PlatformDetails = await _platformsService.GetByIdAsync(id);
+
+            if (PlatformDetails == null)
+                return View("NotFound");
+
+            await _platformsService.RemoveAsync(id);
+
             return RedirectToAction("Index");
         }
     }

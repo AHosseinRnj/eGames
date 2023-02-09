@@ -47,5 +47,26 @@ namespace eGames.Controllers
 
             return View(publisherDetails);
         }
+
+        // Get: Publishers/Edit(id)
+        public async Task<IActionResult> Edit(int id)
+        {
+            var publisherDetails = await _publishersService.GetByIdAsync(id);
+
+            if (publisherDetails == null)
+                return View("NotFound");
+
+            return View(publisherDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "Logo", "Name", "Description")] Publisher publisher)
+        {
+            if (!ModelState.IsValid)
+                return View(publisher);
+
+            await _publishersService.UpdateAsync(id, publisher);
+            return RedirectToAction("Index");
+        }
     }
 }

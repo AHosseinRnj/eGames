@@ -29,9 +29,9 @@
                             @publisher.Description
                         </td>
                         <td class="align-middle" style="white-space:nowrap">
-                            <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@publisher.Id"><i class="bi bi-pencil-square"></i> Edit</a>
+                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@publisher.Id"><i class="bi bi-pencil-square"></i> Edit</a>
                             <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@publisher.Id"><i class="bi bi-eye"></i> Details</a>
-                            <a class="btn btn-danger" asp-action="Details" asp-route-id="@publisher.Id"><i class="bi bi-trash"></i> Delete</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@publisher.Id"><i class="bi bi-trash"></i> Delete</a>
                         </td>
                     </tr>
                 }

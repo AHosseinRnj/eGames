@@ -1,4 +1,5 @@
 ﻿using eGames.Data;
+using eGames.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,16 +7,16 @@ namespace eGames.Controllers
 {
     public class PlatformsController : Controller
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly IPlatformsService _platformsService;
 
-        public PlatformsController(AppDbContext appDbContext)
+        public PlatformsController(IPlatformsService platformsService)
         {
-            _appDbContext = appDbContext;   
+            _platformsService = platformsService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allPlatforms = await _appDbContext.Platforms.ToListAsync();
+            var allPlatforms = await _platformsService.GetAllAsync();
             return View(allPlatforms);
         }
     }

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eGames.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eGames.Models
 {
-    public class Platform
+    public class Platform : IEntityBase
     {
         [Key]
         public int Id { get; set; }

@@ -1,0 +1,88 @@
+﻿@model Game
+
+@{
+    ViewData["Title"] = Model.Name + "Details";
+}
+
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style="margin-bottom: 20px">
+        <div class="card">
+            <img src="@Model.ImageURL" class="card-img-top img-fluid position-relative" alt="Model cover">
+            <div class="card-body">
+                <h5 class="card-title text-">@Model.Name</h5>
+                <p class="card-text">@Model.Description</p>
+                <hr style="border: 0.5px solid gray; height: 1px;" />
+                <p class="card-text">
+                    <small class="text-muted">Platform: @Model.Platform.Name</small>
+                </p>
+                <p class="card-text text-center">
+                    <img src="@Model.Platform.Logo" style="display:block; margin:0 auto; max-width:65px; max-height:65px;">
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Website:
+                        <a href="@Model.Platform.URL" target="_blank" rel="noopener noreferrer">Open</a>
+                    </small>
+                    <br />
+                    <small class="text-muted">
+                        Details:
+                        <a asp-controller="Platforms" asp-action="Details" asp-route-id="@Model.PlatformId">Open</a>
+                    </small>
+                </p>
+                <hr style="border: 0.5px solid gray; height: 1px;" />
+                <p class="card-text">
+                    <small class="text-muted">Publisher: @Model.Publisher.Name</small>
+                </p>
+                <p class="card-text text-center">
+                    <img src="@Model.Publisher.Logo" style="display:block; margin:0 auto; max-width:65px; max-height:65px;">
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Details:
+                        <a asp-controller="Publishers" asp-action="Details" asp-route-id="@Model.PublisherId">Open</a>
+                    </small>
+                </p>
+                <hr style="border: 0.5px solid gray; height: 1px;" />
+                <p class="card-text">
+                    <small class="text-muted">Developers: </small>
+                </p>
+                @foreach (var developer in Model.Developers_Games)
+                {
+                    <p class="card-text text-center">
+                        <img src="@developer.Developer.ProfilePictureURL" style="display:block; margin:0 auto; max-width:120px; max-height:120px;">
+                    </p>
+                    <small class="text-muted">Name: @developer.Developer.FullName</small>
+                    <br />
+                    <small class="text-muted">
+                        Details:
+                        <a asp-controller="Developers" asp-action="Details" asp-route-id="@developer.Developer.Id">Open</a>
+                    </small>
+                }
+                <hr style="border: 0.5px solid gray; height: 1px;" />
+
+                <p class="card-text"><small class="text-muted">Category: @Model.Category</small></p>
+                <p class="card-text"><small class="text-muted">Release Date: @Model.ReleaseDate.ToString("yyyy-MM-dd")</small></p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Status:
+                        @if (DateTime.Now >= Model.ReleaseDate)
+                        {
+                            <span class="badge bg-success text-white">AVAILABLE</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary text-white">UPCOMING</span>
+                        }
+                    </small>
+                </p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-outline-secondary" asp-action="Index">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                    <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (Price $@Model.Price)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,5 +24,16 @@ namespace eGames.Controllers
             var allGames = await _gamesService.GetAllAsync(game => game.Platform);
             return View(allGames);
         }
+
+        // Get: Games/Details/(id)
+        public async Task<IActionResult> Details(int id)
+        {
+            var gameDetails = await _gamesService.GetGameByIdAsync(id);
+
+            if (gameDetails == null)
+                return View("NotFound");
+
+            return View(gameDetails);
+        }
     }
 }

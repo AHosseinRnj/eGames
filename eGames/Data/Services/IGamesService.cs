@@ -3,5 +3,8 @@ using eGames.Models;
 
 namespace eGames.Data.Services
 {
-    public interface IGamesService : IEntityBaseRepository<Game> { }
+    public interface IGamesService : IEntityBaseRepository<Game>
+    {
+        Task<Game> GetGameByIdAsync(int id);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace eGames.Data.Base
 {
@@ -20,6 +21,18 @@ namespace eGames.Data.Base
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _appDbContext.Set<T>().ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _appDbContext.Set<T>();
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)

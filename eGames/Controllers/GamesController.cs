@@ -1,4 +1,5 @@
 ﻿using eGames.Data;
+using eGames.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,11 +7,11 @@ namespace eGames.Controllers
 {
     public class GamesController : Controller
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly IGamesService _gamesService;
 
-        public GamesController(AppDbContext appDbContext)
+        public GamesController(IGamesService gamesService)
         {
-            _appDbContext = appDbContext;
+            _gamesService = gamesService;
         }
 
         public IActionResult NotFound()
@@ -20,7 +21,7 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allGames = await _appDbContext.Games.Include(p => p.Platform).OrderBy(p => p.Name).ToListAsync();
+            var allGames = await _gamesService.GetAllAsync(game => game.Platform);
             return View(allGames);
         }
     }

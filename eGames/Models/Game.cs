@@ -1,10 +1,11 @@
-﻿using eGames.Data.Enums;
+﻿using eGames.Data.Base;
+using eGames.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eGames.Models
 {
-    public class Game
+    public class Game : IEntityBase
     {
         [Key]
         public int Id { get; set; }

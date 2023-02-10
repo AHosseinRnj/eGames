@@ -32,16 +32,6 @@ namespace eGames.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create([Bind("ImageURL", "Name", "Description", "Price", "ReleaseDate", "Category")] Game game)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View(game);
-
-        //    await _gamesService.AddAsync(game);
-        //    return RedirectToAction("Index");
-        //}
-
         // Get: Games/Details/(id)
         public async Task<IActionResult> Details(int id)
         {

@@ -113,5 +113,33 @@ namespace eGames.Controllers
             await _gamesService.UpdateGameAsync(newGame);
             return RedirectToAction("Index");
         }
+
+        // Get: Games/Delete/(id)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var gameDetails = await _gamesService.GetGameByIdAsync(id);
+
+            if (gameDetails == null)
+                return View("NotFound");
+
+            var response = MapGameDetailsToNewGameVM(gameDetails);
+
+            await SetGameDropdownsAsync();
+
+            return View(response);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var gameDetails = await _gamesService.GetGameByIdAsync(id);
+
+            if (gameDetails == null)
+                return View("NotFound");
+
+            await _gamesService.RemoveGameAsync(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

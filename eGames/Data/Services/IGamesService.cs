@@ -10,5 +10,6 @@ namespace eGames.Data.Services
         Task<NewGameDropdownsVM> GetNewGameDropdownsValuesAsync();
         Task AddNewGameAsync(NewGameVM newGameVM);
         Task UpdateGameAsync(NewGameVM newGameVM);
+        Task RemoveGameAsync(int id);
     }
 }

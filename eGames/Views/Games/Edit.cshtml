@@ -77,7 +77,10 @@
                     </div>
                     @*Submit section*@
                     <div class="form-group" style="margin-top:10px">
-                        <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                        <div class="float-end">
+                            <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.Id" style="margin-right:5px"><i class="bi bi-trash"></i> Delete</a>
+                        </div>
                         <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
                     </div>
                 </form>

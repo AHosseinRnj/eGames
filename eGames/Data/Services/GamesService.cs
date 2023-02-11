@@ -45,6 +45,22 @@ namespace eGames.Data.Services
             await _appDbContext.SaveChangesAsync();
         }
 
+        public async Task RemoveGameAsync(int id)
+        {
+            var gameDetails = await _appDbContext.Games.FirstOrDefaultAsync(game => game.Id == id);
+
+            if (gameDetails != null)
+            {
+                _appDbContext.Games.Remove(gameDetails);
+
+                // Remove any associated records in the Developer_Game table
+                var developersGames = await _appDbContext.Developers_Games.Where(devgame => devgame.GameId == id).ToListAsync();
+                _appDbContext.Developers_Games.RemoveRange(developersGames);
+
+                await _appDbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task<Game> GetGameByIdAsync(int id)
         {
             var gameDetails = await _appDbContext.Games
@@ -71,7 +87,7 @@ namespace eGames.Data.Services
         {
             var dbGame = await _appDbContext.Games.FirstOrDefaultAsync(game => game.Id == newGameVM.Id);
 
-            if(dbGame != null)
+            if (dbGame != null)
             {
                 dbGame.ImageURL = newGameVM.ImageURL;
                 dbGame.Name = newGameVM.Name;
@@ -81,22 +97,21 @@ namespace eGames.Data.Services
                 dbGame.Category = newGameVM.Category;
                 dbGame.PlatformId = newGameVM.PlatformId;
                 dbGame.PublisherId = newGameVM.PublisherId;
-            }
 
-            // Update any associated records in the Developer_Game table
-            var developersGames = await _appDbContext.Developers_Games.Where(devgame => devgame.GameId == newGameVM.Id).ToListAsync();
-            _appDbContext.Developers_Games.RemoveRange(developersGames);
+                // Update any associated records in the Developer_Game table
+                var developersGames = await _appDbContext.Developers_Games.Where(devgame => devgame.GameId == newGameVM.Id).ToListAsync();
+                _appDbContext.Developers_Games.RemoveRange(developersGames);
 
-            foreach (var developerId in newGameVM.DeveloperIds)
-            {
-                var newDeveloperGame = new Developer_Game()
+                foreach (var developerId in newGameVM.DeveloperIds)
                 {
-                    GameId = dbGame.Id,
-                    DeveloperId = developerId
-                };
-                await _appDbContext.AddAsync(newDeveloperGame);
+                    var newDeveloperGame = new Developer_Game()
+                    {
+                        GameId = dbGame.Id,
+                        DeveloperId = developerId
+                    };
+                    await _appDbContext.AddAsync(newDeveloperGame);
+                }
             }
-
             await _appDbContext.SaveChangesAsync();
         }
     }

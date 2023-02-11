@@ -2,6 +2,7 @@
 using eGames.Data.Services;
 using eGames.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
@@ -27,8 +28,14 @@ namespace eGames.Controllers
         }
 
         // Get: Games/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var gameDropdownsData = await _gamesService.GetNewGameDropdownsValuesAsync();
+
+            ViewBag.PlatformId = new SelectList(gameDropdownsData.Platforms, "Id","Name");
+            ViewBag.PublisherId = new SelectList(gameDropdownsData.Publishers, "Id","Name");
+            ViewBag.DeveloperId = new SelectList(gameDropdownsData.Developers, "Id","FullName");
+
             return View();
         }
 

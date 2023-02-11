@@ -36,7 +36,10 @@
                         <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@game.Id">
                             <i class="bi bi-eye-fill"></i> Show Details
                         </a>
-                        <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (Price $@game.Price)</a>
+                        <a class="btn btn-success text-white">
+                            <i class="bi bi-cart-plus"></i>
+                            @((DateTime.Now >= game.ReleaseDate) ? "Add to Cart " : "Pre-Purchase ")(Price $@game.Price)
+                        </a>
                     </div>
                 </div>
             </div>

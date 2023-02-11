@@ -54,6 +54,23 @@ namespace eGames.Controllers
             return View(allGames);
         }
 
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allGames = await _gamesService.GetAllAsync(game => game.Platform);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.ToLower();
+                var filteredResult = allGames.Where(game => game.Name.ToLower().Contains(searchString) ||
+                                                    game.Description.ToLower().Contains(searchString)).ToList();
+
+                if (filteredResult.Any())
+                    return View("Index", filteredResult);
+            }
+
+            return View("GameNotFound");
+        }
+
         // Get: Games/Create
         public async Task<IActionResult> Create()
         {

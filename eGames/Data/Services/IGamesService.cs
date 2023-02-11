@@ -8,5 +8,6 @@ namespace eGames.Data.Services
     {
         Task<Game> GetGameByIdAsync(int id);
         Task<NewGameDropdownsVM> GetNewGameDropdownsValuesAsync();
+        Task AddNewGameAsync(NewGameVM newGameVM);
     }
 }

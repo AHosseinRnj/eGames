@@ -30,13 +30,31 @@ namespace eGames.Controllers
         // Get: Games/Create
         public async Task<IActionResult> Create()
         {
-            var gameDropdownsData = await _gamesService.GetNewGameDropdownsValuesAsync();
-
-            ViewBag.PlatformId = new SelectList(gameDropdownsData.Platforms, "Id","Name");
-            ViewBag.PublisherId = new SelectList(gameDropdownsData.Publishers, "Id","Name");
-            ViewBag.DeveloperId = new SelectList(gameDropdownsData.Developers, "Id","FullName");
+            await SetGameDropdownsAsync();
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewGameVM newGame)
+        {
+            if (!ModelState.IsValid)
+            {
+                await SetGameDropdownsAsync();
+                return View(newGame);
+            }
+
+            await _gamesService.AddNewGameAsync(newGame);
+            return RedirectToAction("Index");
+        }
+
+        private async Task SetGameDropdownsAsync()
+        {
+            var gameDropdownsData = await _gamesService.GetNewGameDropdownsValuesAsync();
+
+            ViewBag.PlatformId = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
+            ViewBag.PublisherId = new SelectList(gameDropdownsData.Publishers, "Id", "Name");
+            ViewBag.DeveloperId = new SelectList(gameDropdownsData.Developers, "Id", "FullName");
         }
 
         // Get: Games/Details/(id)

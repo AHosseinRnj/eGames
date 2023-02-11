@@ -13,6 +13,37 @@ namespace eGames.Data.Services
             _appDbContext = appDbContext;
         }
 
+        public async Task AddNewGameAsync(NewGameVM newGameVM)
+        {
+            var newGame = new Game()
+            {
+                ImageURL = newGameVM.ImageURL,
+                Name = newGameVM.Name,
+                Description = newGameVM.Description,
+                Price = newGameVM.Price,
+                ReleaseDate = newGameVM.ReleaseDate,
+                Category = newGameVM.Category,
+
+                PlatformId = newGameVM.PlatformId,
+                PublisherId = newGameVM.PublisherId,
+            };
+
+            await _appDbContext.AddAsync(newGame);
+            await _appDbContext.SaveChangesAsync();
+
+            // Add Game Developers
+            foreach (var developerId in newGameVM.DeveloperIds)
+            {
+                var newDeveloperGame = new Developer_Game()
+                {
+                    GameId = newGame.Id,
+                    DeveloperId = developerId
+                };
+                await _appDbContext.AddAsync(newDeveloperGame);
+            }
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public async Task<Game> GetGameByIdAsync(int id)
         {
             var gameDetails = await _appDbContext.Games

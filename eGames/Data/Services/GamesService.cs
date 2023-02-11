@@ -2,6 +2,7 @@
 using eGames.Data.ViewModels;
 using eGames.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace eGames.Data.Services
 {
@@ -64,6 +65,39 @@ namespace eGames.Data.Services
                 Publishers = await _appDbContext.Publishers.OrderBy(publisher => publisher.Name).ToListAsync()
             };
             return response;
+        }
+
+        public async Task UpdateGameAsync(NewGameVM newGameVM)
+        {
+            var dbGame = await _appDbContext.Games.FirstOrDefaultAsync(game => game.Id == newGameVM.Id);
+
+            if(dbGame != null)
+            {
+                dbGame.ImageURL = newGameVM.ImageURL;
+                dbGame.Name = newGameVM.Name;
+                dbGame.Description = newGameVM.Description;
+                dbGame.Price = newGameVM.Price;
+                dbGame.ReleaseDate = newGameVM.ReleaseDate;
+                dbGame.Category = newGameVM.Category;
+                dbGame.PlatformId = newGameVM.PlatformId;
+                dbGame.PublisherId = newGameVM.PublisherId;
+            }
+
+            // Update any associated records in the Developer_Game table
+            var developersGames = await _appDbContext.Developers_Games.Where(devgame => devgame.GameId == newGameVM.Id).ToListAsync();
+            _appDbContext.Developers_Games.RemoveRange(developersGames);
+
+            foreach (var developerId in newGameVM.DeveloperIds)
+            {
+                var newDeveloperGame = new Developer_Game()
+                {
+                    GameId = dbGame.Id,
+                    DeveloperId = developerId
+                };
+                await _appDbContext.AddAsync(newDeveloperGame);
+            }
+
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace eGames.Models
 {
     public class NewGameVM
     {
+        public int Id { get; set; }
+
         [Display(Name = "Game image URL")]
         [Required(ErrorMessage = "Image URL is required")]
         public string ImageURL { get; set; }

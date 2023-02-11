@@ -21,6 +21,33 @@ namespace eGames.Controllers
             return View("NotFound");
         }
 
+        private async Task SetGameDropdownsAsync()
+        {
+            var gameDropdownsData = await _gamesService.GetNewGameDropdownsValuesAsync();
+
+            ViewBag.PlatformId = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
+            ViewBag.PublisherId = new SelectList(gameDropdownsData.Publishers, "Id", "Name");
+            ViewBag.DeveloperId = new SelectList(gameDropdownsData.Developers, "Id", "FullName");
+        }
+
+        private NewGameVM MapGameDetailsToNewGameVM(Game gameDetails)
+        {
+            return new NewGameVM()
+            {
+                Id = gameDetails.Id,
+                ImageURL = gameDetails.ImageURL,
+                Name = gameDetails.Name,
+                Description = gameDetails.Description,
+                Price = gameDetails.Price,
+                ReleaseDate = gameDetails.ReleaseDate,
+                Category = gameDetails.Category,
+
+                PlatformId = gameDetails.PlatformId,
+                PublisherId = gameDetails.PublisherId,
+                DeveloperIds = gameDetails.Developers_Games.Select(gameDeveloper => gameDeveloper.DeveloperId).ToList()
+            };
+        }
+
         public async Task<IActionResult> Index()
         {
             var allGames = await _gamesService.GetAllAsync(game => game.Platform);
@@ -48,15 +75,6 @@ namespace eGames.Controllers
             return RedirectToAction("Index");
         }
 
-        private async Task SetGameDropdownsAsync()
-        {
-            var gameDropdownsData = await _gamesService.GetNewGameDropdownsValuesAsync();
-
-            ViewBag.PlatformId = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
-            ViewBag.PublisherId = new SelectList(gameDropdownsData.Publishers, "Id", "Name");
-            ViewBag.DeveloperId = new SelectList(gameDropdownsData.Developers, "Id", "FullName");
-        }
-
         // Get: Games/Details/(id)
         public async Task<IActionResult> Details(int id)
         {
@@ -66,6 +84,34 @@ namespace eGames.Controllers
                 return View("NotFound");
 
             return View(gameDetails);
+        }
+
+        // Get: Games/Edit/(id)
+        public async Task<IActionResult> Edit(int id)
+        {
+            var gameDetails = await _gamesService.GetGameByIdAsync(id);
+
+            if (gameDetails == null)
+                return View("NotFound");
+
+            var response = MapGameDetailsToNewGameVM(gameDetails);
+
+            await SetGameDropdownsAsync();
+
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewGameVM newGame)
+        {
+            if (!ModelState.IsValid)
+            {
+                await SetGameDropdownsAsync();
+                return View(newGame);
+            }
+
+            await _gamesService.UpdateGameAsync(newGame);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -10,7 +10,9 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-4" style="margin-bottom: 20px">
             <div class="card">
                 <img src="@game.ImageURL" class="card-img-top img-fluid position-relative" alt="Game cover">
-                <a class="position-absolute text-white" style="top: 5px; right: 10px; font-size: 2em"><i class="bi bi-pencil-square"></i></a>
+                <a asp-action="Edit" asp-route-id="@game.Id" class="position-absolute text-white" style="top: 5px; right: 10px; font-size: 2em">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
                 <div class="card-body">
                     <h5 class="card-title text-">@game.Name</h5>
                     <p class="card-text">@game.Description</p>

@@ -15,6 +15,20 @@ namespace eGames.Data.Cart
             _appDbContext = appDbContext;
         }
 
+        public static ShoppingCart GetShoppingCart(IServiceProvider serviceProvider)
+        {
+            ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.Session ?? 
+                                                throw new InvalidOperationException("HttpContextAccessor or Session not available");
+
+            var context = serviceProvider.GetService<AppDbContext>() ??
+                                                throw new InvalidOperationException("AppDbContext not available");
+
+            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+            session.SetString("CartId", cartId);
+
+            return new ShoppingCart(context) { ShoppingCartId = cartId };
+        }
+
         public async Task AddItemToCartAsync(Game game)
         {
             var shoppingCartItem = await _appDbContext.ShoppingCartItems

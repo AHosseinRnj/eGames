@@ -16,7 +16,7 @@ namespace eGames.Controllers
             _shoppingCart = shoppingCart;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ShoppingCart()
         {
             var items = await _shoppingCart.GetShoppingCartItemsAsync();
             _shoppingCart.ShoppingCartItems = items;

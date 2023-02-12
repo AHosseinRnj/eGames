@@ -1,4 +1,5 @@
 using eGames.Data;
+using eGames.Data.Cart;
 using eGames.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,11 @@ builder.Services.AddScoped<IPublishersService, PublishersService>();
 builder.Services.AddScoped<IPlatformsService, PlatformsService>();
 builder.Services.AddScoped<IGamesService, GamesService>();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped(serviceProvicer => ShoppingCart.GetShoppingCart(serviceProvicer));
+
+builder.Services.AddSession();
+ 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -31,6 +37,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

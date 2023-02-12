@@ -15,6 +15,44 @@ namespace eGames.Data.Cart
             _appDbContext = appDbContext;
         }
 
+        public async Task AddItemToCartAsync(Game game)
+        {
+            var shoppingCartItem = await _appDbContext.ShoppingCartItems
+                                            .FirstOrDefaultAsync(cart => cart.Game.Id == game.Id && cart.ShoppingCartId == ShoppingCartId);
+
+            if (shoppingCartItem == null)
+            {
+                shoppingCartItem = new ShoppingCartItem()
+                {
+                    ShoppingCartId = ShoppingCartId,
+                    Game = game,
+                    Amount = 1
+                };
+
+                await _appDbContext.ShoppingCartItems.AddAsync(shoppingCartItem);
+            }
+            else
+                shoppingCartItem.Amount++;
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveItemFromCartAsync(Game game)
+        {
+            var shoppingCartItem = await _appDbContext.ShoppingCartItems
+                                .FirstOrDefaultAsync(cart => cart.Game.Id == game.Id && cart.ShoppingCartId == ShoppingCartId);
+
+            if (shoppingCartItem != null)
+            {
+                if (shoppingCartItem.Amount > 1)
+                    shoppingCartItem.Amount--;
+                else
+                    _appDbContext.ShoppingCartItems.Remove(shoppingCartItem);
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public async Task<List<ShoppingCartItem>> GetShoppingCartItemsAsync()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = await _appDbContext.ShoppingCartItems

@@ -27,5 +27,9 @@ namespace eGames.Data
         public DbSet<Developer_Game> Developers_Games { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+
+        // Orders related tables
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

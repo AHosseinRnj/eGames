@@ -29,7 +29,7 @@
                         <td class="align-middle">@item.Amount</td>
                         <td class="align-middle">@((item.Amount * item.Game.Price).ToString("c"))</td>
                         <td class="align-middle" style="white-space:nowrap">
-                            <a class="text-danger" style="text-decoration:none" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Game.Id">
+                            <a class="text-danger" style="text-decoration:none" asp-controller="Orders" asp-action="RemoveFromShoppingCart" asp-route-id="@item.Game.Id">
                                 <i class="bi bi-cart-dash"></i>
                             </a>
                             |

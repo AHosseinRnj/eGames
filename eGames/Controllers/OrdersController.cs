@@ -39,5 +39,15 @@ namespace eGames.Controllers
 
             return RedirectToAction("ShoppingCart");
         }
+
+        public async Task<RedirectToActionResult> RemoveFromShoppingCart(int id)
+        {
+            var item = await _gamesService.GetGameByIdAsync(id);
+
+            if (item != null)
+                await _shoppingCart.RemoveItemFromCartAsync(item);
+
+            return RedirectToAction("ShoppingCart");
+        }
     }
 }

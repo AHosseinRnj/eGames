@@ -9,11 +9,13 @@ namespace eGames.Controllers
     {
         private readonly IGamesService _gamesService;
         private readonly ShoppingCart _shoppingCart;
+        private readonly IOrdersService _ordersService;
 
-        public OrdersController(IGamesService gamesService, ShoppingCart shoppingCart)
+        public OrdersController(IGamesService gamesService, ShoppingCart shoppingCart, IOrdersService ordersService)
         {
             _gamesService = gamesService;
             _shoppingCart = shoppingCart;
+            _ordersService = ordersService;
         }
 
         public async Task<IActionResult> ShoppingCart()
@@ -34,7 +36,7 @@ namespace eGames.Controllers
         {
             var item = await _gamesService.GetGameByIdAsync(id);
 
-            if(item != null)
+            if (item != null)
                 await _shoppingCart.AddItemToCartAsync(item);
 
             return RedirectToAction("ShoppingCart");
@@ -48,6 +50,20 @@ namespace eGames.Controllers
                 await _shoppingCart.RemoveItemFromCartAsync(item);
 
             return RedirectToAction("ShoppingCart");
+        }
+
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var items = await _shoppingCart.GetShoppingCartItemsAsync();
+
+            // Empty for now
+            string userId = "";
+            string userEmailAddress = "";
+
+            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _shoppingCart.ClearShoppingCartAsync();
+
+            return View("OrderCompleted");
         }
     }
 }

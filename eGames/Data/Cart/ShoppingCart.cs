@@ -67,6 +67,15 @@ namespace eGames.Data.Cart
             await _appDbContext.SaveChangesAsync();
         }
 
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _appDbContext.ShoppingCartItems
+                                            .Where(cart => cart.ShoppingCartId == ShoppingCartId).ToListAsync();
+
+            _appDbContext.ShoppingCartItems.RemoveRange(items);
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public async Task<List<ShoppingCartItem>> GetShoppingCartItemsAsync()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = await _appDbContext.ShoppingCartItems

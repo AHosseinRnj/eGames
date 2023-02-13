@@ -52,11 +52,14 @@
             </tfoot>
         </table>
         <div class="text-center">
-            <div class="btn-group">
-                <a class="btn btn-outline-success" asp-controller="Games" asp-action="Index">
-                    Add more items
-                </a>
-            </div>
+            <a class="btn btn-outline-primary" asp-controller="Games" asp-action="Index">
+                <i class="bi bi-plus-square-dotted"></i>
+                Add more items
+            </a>
+            <a class="btn btn-success" asp-action="CompleteOrder">
+                <i class="bi bi-credit-card"></i>
+                Complete Order
+            </a>
         </div>
     </div>
 </div>

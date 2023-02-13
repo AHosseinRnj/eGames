@@ -21,11 +21,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        @*
-                        <li class="navbar-nav">
-                        <a class="nav-link text-dark" asp-controller="Games" asp-action="Index"><i class="bi bi-controller"></i> Games</a>
-                        </li>*@
-
+                        @*Management dropdown*@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Management
@@ -39,14 +35,32 @@
 
                     </ul>
 
+                    @*Search bax*@
                     <form class="form-inline my-2 my-lg-0" asp-controller="Games" asp-action="Filter" style="display:flex">
                         <input name="searchString" type="text" class="form-control" placeholder="Search for a game..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right:10px"><i class="bi bi-search"></i></button>
                     </form>
 
+                    @*Shoppingcart icon*@
                     <ul class="navbar nav">
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
+
+                    @*User profile*@
+                    <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 20px">
+                            <i class="bi bi-person-badge"></i>
+                            Hello, User
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                            <li>
+                                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                                    <i class="bi bi-list"></i>
+                                    Orders
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             </div>

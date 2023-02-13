@@ -29,5 +29,15 @@ namespace eGames.Controllers
 
             return View(response);
         }
+
+        public async Task<RedirectToActionResult> AddToShoppingCart(int id)
+        {
+            var item = await _gamesService.GetGameByIdAsync(id);
+
+            if(item != null)
+                await _shoppingCart.AddItemToCartAsync(item);
+
+            return RedirectToAction("ShoppingCart");
+        }
     }
 }

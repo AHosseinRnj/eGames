@@ -80,7 +80,10 @@
                     <a class="btn btn-outline-secondary" asp-action="Index">
                         <i class="bi bi-arrow-left"></i> Back
                     </a>
-                    <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (Price $@Model.Price)</a>
+                    <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@Model.Id>
+                        <i class="bi bi-cart-plus"></i>
+                        @((DateTime.Now >= Model.ReleaseDate) ? "Add to Cart " : "Pre-Purchase ")(Price $@Model.Price)
+                    </a>
                 </div>
             </div>
         </div>

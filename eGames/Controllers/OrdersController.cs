@@ -66,6 +66,9 @@ namespace eGames.Controllers
         {
             var items = await _shoppingCart.GetShoppingCartItemsAsync();
 
+            if (items.Count == 0)
+                return RedirectToAction("CartWasEmpty");
+
             // Empty for now
             string userId = "";
             string userEmailAddress = "";
@@ -77,6 +80,11 @@ namespace eGames.Controllers
         }
 
         public IActionResult OrderCompleted()
+        {
+            return View();
+        }
+
+        public IActionResult CartWasEmpty()
         {
             return View();
         }

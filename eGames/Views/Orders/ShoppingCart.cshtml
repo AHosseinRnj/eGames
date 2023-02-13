@@ -29,11 +29,11 @@
                         <td class="align-middle">@item.Amount</td>
                         <td class="align-middle">@((item.Amount * item.Game.Price).ToString("c"))</td>
                         <td class="align-middle" style="white-space:nowrap">
-                            <a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Game.Id">
+                            <a class="text-danger" style="text-decoration:none" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Game.Id">
                                 <i class="bi bi-cart-dash"></i>
                             </a>
                             |
-                            <a class="text-success" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Game.Id">
+                            <a class="text-success" style="text-decoration:none" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Game.Id">
                                 <i class="bi bi-cart-plus"></i>
                             </a>
                         </td>

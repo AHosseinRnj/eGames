@@ -18,7 +18,7 @@
                 </div>
             }
 
-            <form asp-action="Login">
+            <form asp-action="Signup">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="FullName" class="form-label"><i class="bi bi-person-circle me-2"></i>Full name</label>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-success">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        <i class="bi bi-clipboard2-check-fill me-2"></i>
                         Signup
                     </button>
                     <a class="btn btn-secondary" asp-controller="Games" asp-action="Index">

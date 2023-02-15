@@ -1,4 +1,5 @@
 ﻿using eGames.Data;
+using eGames.Data.Static;
 using eGames.Data.ViewModels;
 using eGames.Models;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,7 @@ namespace eGames.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(loginVM);
 
             var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
@@ -52,6 +53,48 @@ namespace eGames.Controllers
         public IActionResult Signup()
         {
             return View(new SignupVM());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Signup(SignupVM signupVM)
+        {
+            if (!ModelState.IsValid)
+                return View(signupVM);
+
+            var user = await _userManager.FindByEmailAsync(signupVM.EmailAddress);
+            if (user != null)
+            {
+                TempData["Error"] = "This mail address is already in use";
+                return View(signupVM);
+            }
+
+            var newUser = new ApplicationUser()
+            {
+                FullName = signupVM.FullName,
+                Email = signupVM.EmailAddress,
+                UserName = signupVM.EmailAddress,
+
+            };
+
+            var newUserResponse = await _userManager.CreateAsync(newUser, signupVM.Password);
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+                return View("RegisterCompleted");
+            }
+            else
+            {
+                var errors = string.Empty;
+                var errorCount = 1;
+                foreach (var error in newUserResponse.Errors)
+                {
+                    errors += " (" + errorCount + ") " + error.Description;
+                    errorCount++;
+                }
+
+                TempData["Error"] = $"Error(s): {errors}";
+                return View(signupVM);
+            }
         }
     }
 }

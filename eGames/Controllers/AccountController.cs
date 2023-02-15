@@ -4,6 +4,7 @@ using eGames.Data.ViewModels;
 using eGames.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
@@ -18,6 +19,12 @@ namespace eGames.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _appDbContext = appDbContext;
+        }
+
+        public async Task<IActionResult> Users()
+        {
+            var users = await _appDbContext.Users.ToListAsync();
+            return View(users);
         }
 
         public IActionResult Login()

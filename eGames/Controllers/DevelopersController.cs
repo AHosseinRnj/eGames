@@ -1,11 +1,13 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
 using eGames.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
+    [Authorize]
     public class DevelopersController : Controller
     {
         private readonly IDevelopersService _developersService;
@@ -15,6 +17,7 @@ namespace eGames.Controllers
             _developersService = developersService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allDevelopers = await _developersService.GetAllAsync();
@@ -38,6 +41,7 @@ namespace eGames.Controllers
         }
 
         // Get: Developers/Details/(id)
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var developerDetails = await _developersService.GetByIdAsync(id);

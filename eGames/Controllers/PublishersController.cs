@@ -1,11 +1,13 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
 using eGames.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
+    [Authorize]
     public class PublishersController : Controller
     {
         private readonly IPublishersService _publishersService;
@@ -15,6 +17,7 @@ namespace eGames.Controllers
             _publishersService = publishersService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allPublishers = await _publishersService.GetAllAsync();
@@ -38,6 +41,7 @@ namespace eGames.Controllers
         }
 
         // Get: Publishers/Details/(id)
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var publisherDetails = await _publishersService.GetByIdAsync(id);

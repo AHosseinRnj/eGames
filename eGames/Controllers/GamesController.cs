@@ -1,12 +1,14 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
 using eGames.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
+    [Authorize]
     public class GamesController : Controller
     {
         private readonly IGamesService _gamesService;
@@ -48,12 +50,14 @@ namespace eGames.Controllers
             };
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allGames = await _gamesService.GetAllAsync(game => game.Platform);
             return View(allGames);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
             var allGames = await _gamesService.GetAllAsync(game => game.Platform);
@@ -93,6 +97,7 @@ namespace eGames.Controllers
         }
 
         // Get: Games/Details/(id)
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var gameDetails = await _gamesService.GetGameByIdAsync(id);

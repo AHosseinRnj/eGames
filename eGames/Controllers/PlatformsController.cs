@@ -1,11 +1,13 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
 using eGames.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
+    [Authorize]
     public class PlatformsController : Controller
     {
         private readonly IPlatformsService _platformsService;
@@ -15,6 +17,7 @@ namespace eGames.Controllers
             _platformsService = platformsService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allPlatforms = await _platformsService.GetAllAsync();
@@ -38,6 +41,7 @@ namespace eGames.Controllers
         }
 
         // Get: Platforms/Details/(id)
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var PlatformDetails = await _platformsService.GetByIdAsync(id);

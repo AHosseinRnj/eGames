@@ -1,6 +1,7 @@
 ﻿using eGames.Data.Cart;
 using eGames.Data.Services;
 using eGames.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace eGames.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IGamesService _gamesService;

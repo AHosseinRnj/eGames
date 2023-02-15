@@ -12,7 +12,10 @@
         <thead>
             <tr class="table-dark">
                 <th scope="col">Order ID</th>
-                <th scope="col">User</th>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <th scope="col">User</th>
+                }
                 <th scope="col">Product Name(s)</th>
                 <th scope="col">Total</th>
             </tr>
@@ -22,7 +25,10 @@
             {
                 <tr>
                     <td>@order.Id</td>
-                    <td>N/A</td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <td> @order.User.FullName </td>
+                    }
                     <td>
                         <ul style="list-style-type:none">
                             @foreach (var product in order.OrderItems)

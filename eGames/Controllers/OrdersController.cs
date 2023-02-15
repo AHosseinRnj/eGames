@@ -4,6 +4,7 @@ using eGames.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace eGames.Controllers
@@ -23,10 +24,10 @@ namespace eGames.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Empty for now
-            string userId = "";
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
+            var orders = await _ordersService.GetOrdersByUserIdAndRoleAsync(userId, userRole);
 
             return View(orders);
         } 
@@ -72,9 +73,8 @@ namespace eGames.Controllers
             if (items.Count == 0)
                 return RedirectToAction("CartWasEmpty");
 
-            // Empty for now
-            string userId = "";
-            string userEmailAddress = "";
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
             await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsync();

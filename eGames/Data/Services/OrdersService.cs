@@ -11,11 +11,15 @@ namespace eGames.Data.Services
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
+        public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
+
+
             var orders = await _appDbContext.Orders.Include(order => order.OrderItems)
-                                             .ThenInclude(orderItem => orderItem.Game)
-                                             .Where(order => order.UserId == userId).ToListAsync();
+                                             .ThenInclude(orderItem => orderItem.Game).Include(order => order.User).ToListAsync();
+
+            if(userRole != "Admin")
+                orders = orders.Where(order => order.UserId == userId).ToList();
 
             return orders;
         }

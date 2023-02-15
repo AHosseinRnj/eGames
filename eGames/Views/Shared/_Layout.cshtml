@@ -60,7 +60,7 @@
 
                     @*User profile*@
                     <div class="dropdown">
-                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 20px">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 2px">
                             <i class="bi bi-person-badge"></i>
                             Hello, User
                         </button>
@@ -73,6 +73,14 @@
                             </li>
                         </ul>
                     </div>
+
+                    @*Logout Button*@
+                    <form asp-controller="Account" asp-action="Logout">
+                        <button class="btn btn-outline-danger">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Logout
+                        </button>
+                    </form>
 
                 </div>
             </div>

@@ -96,5 +96,12 @@ namespace eGames.Controllers
                 return View(signupVM);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Games");
+        }
     }
 }

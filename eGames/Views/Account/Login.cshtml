@@ -9,6 +9,15 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <h1 class="text-center mb-4">Login</h1>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
@@ -27,9 +36,9 @@
                         Login
                     </button>
                     <a class="btn btn-secondary" asp-controller="Games" asp-action="Index">
-                        <i class="bi bi-x-circle-fill me-2"></i
-                        >Cancel
-                    </a>             
+                        <i class="bi bi-x-circle-fill me-2"></i>
+                        Cancel
+                    </a>
                 </div>
             </form>
         </div>

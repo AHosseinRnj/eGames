@@ -48,5 +48,10 @@ namespace eGames.Controllers
             TempData["Error"] = "Wrong credentials. Please, Try again!";
             return View(loginVM);
         }
+
+        public IActionResult Signup()
+        {
+            return View(new SignupVM());
+        }
     }
 }

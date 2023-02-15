@@ -200,7 +200,7 @@ namespace eGames.Data
 
                 // Admin user
                 const string adminEmail = "admin@egames.com";
-                const string adminPassword = "admin@123$";
+                const string adminPassword = "Admin@123$";
 
                 var adminUser = await userManager.FindByEmailAsync(adminEmail);
                 if (adminUser == null)
@@ -213,13 +213,15 @@ namespace eGames.Data
                         EmailConfirmed = true,
                     };
                     // User, Password
-                    await userManager.CreateAsync(newAdminUser, adminPassword);
-                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                    var result = await userManager.CreateAsync(newAdminUser, adminPassword);
+
+                    if (result.Succeeded)
+                        await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 }
 
                 // Normal user
                 const string userEmail = "user@egames.com";
-                const string userPassword = "admin@123$";
+                const string userPassword = "User@123$";
 
                 var user = await userManager.FindByEmailAsync(userEmail);
                 if (user == null)
@@ -232,8 +234,10 @@ namespace eGames.Data
                         EmailConfirmed = true,
                     };
                     // User, Password
-                    await userManager.CreateAsync(user, userPassword);
-                    await userManager.AddToRoleAsync(user, UserRoles.User);
+                    var result = await userManager.CreateAsync(newUser, userPassword);
+
+                    if (result.Succeeded)
+                        await userManager.AddToRoleAsync(newUser, UserRoles.User);
                 }
             }
         }

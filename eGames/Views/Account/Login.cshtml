@@ -21,12 +21,12 @@
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
-                    <label for="Email" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+                    <label asp-for="EmailAddress" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Email</label>
                     <input type="email" asp-for="EmailAddress" class="form-control" />
                     <span asp-validation-for="EmailAddress" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="Password" class="form-label"><i class="bi bi-lock-fill me-2"></i>Password</label>
+                    <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill me-2"></i>Password</label>
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>

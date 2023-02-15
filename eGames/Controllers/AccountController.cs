@@ -110,5 +110,10 @@ namespace eGames.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Games");
         }
+
+        public IActionResult AccessDenied(string ReturnUrl)
+        {
+            return View();
+        }
     }
 }

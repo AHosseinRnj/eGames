@@ -1,5 +1,6 @@
 ﻿using eGames.Data;
 using eGames.Data.Services;
+using eGames.Data.Static;
 using eGames.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eGames.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = UserRoles.Admin)]
     public class PublishersController : Controller
     {
         private readonly IPublishersService _publishersService;

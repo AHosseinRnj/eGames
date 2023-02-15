@@ -1,5 +1,6 @@
 ﻿using eGames.Data.Cart;
 using eGames.Data.Services;
+using eGames.Data.Static;
 using eGames.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace eGames.Controllers
             var orders = await _ordersService.GetOrdersByUserIdAndRoleAsync(userId, userRole);
 
             return View(orders);
-        } 
+        }
 
         public async Task<IActionResult> ShoppingCart()
         {
@@ -89,11 +90,11 @@ namespace eGames.Controllers
 
         private readonly string _merchentId = "zibal"; // Your merchent id
         private readonly string _callbackUrl = "https://localhost:44358/Orders/ValidatePayment"; // Your callback url
-        private readonly int _dollarToIrr = 450000; 
+        private readonly int _dollarToIrr = 450000;
 
         public async Task<IActionResult> RequestPayment()
         {
-            // Total amount in toman ( $1 = 450000 IRR)
+            // Total amount in irr ( $1 = 450000 IRR)
             var totalAmount = (_shoppingCart.GetShoppingCartTotal() * _dollarToIrr);
 
             var paymentRequest = new

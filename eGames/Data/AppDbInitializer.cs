@@ -1,4 +1,6 @@
-﻿using eGames.Models;
+﻿using eGames.Data.Static;
+using eGames.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace eGames.Data
 {
@@ -176,6 +178,62 @@ namespace eGames.Data
                         }
                     });
                     dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                // Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                // Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                // Admin user
+                const string adminEmail = "admin@egames.com";
+                const string adminPassword = "admin@123$";
+
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                if (adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        FullName = "Admin",
+                        UserName = "admin",
+                        Email = adminEmail,
+                        EmailConfirmed = true,
+                    };
+                    // User, Password
+                    await userManager.CreateAsync(newAdminUser, adminPassword);
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+                // Normal user
+                const string userEmail = "user@egames.com";
+                const string userPassword = "admin@123$";
+
+                var user = await userManager.FindByEmailAsync(userEmail);
+                if (user == null)
+                {
+                    var newUser = new ApplicationUser()
+                    {
+                        FullName = "App User",
+                        UserName = "app-user",
+                        Email = userEmail,
+                        EmailConfirmed = true,
+                    };
+                    // User, Password
+                    await userManager.CreateAsync(user, userPassword);
+                    await userManager.AddToRoleAsync(user, UserRoles.User);
                 }
             }
         }

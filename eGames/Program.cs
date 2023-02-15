@@ -56,5 +56,6 @@ app.UseEndpoints(endpoints =>
 
 // Seed Database
 AppDbInitializer.Seed(app);
+await AppDbInitializer.SeedUsersAndRolesAsync(app);
 
 app.Run();

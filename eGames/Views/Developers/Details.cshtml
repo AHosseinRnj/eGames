@@ -27,7 +27,10 @@
                     <input asp-for="Biography" class="form-control" readonly />
                 </div>
                 <div class="form-group" style="margin-top:10px">
-                    <a class="btn btn-outline-primary float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-primary float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    }
                     <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                 </div>
             </div>

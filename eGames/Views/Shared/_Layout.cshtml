@@ -21,17 +21,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        @*Management dropdown*@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-gear"></i> Management
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Platforms" asp-action="Index"><i class="bi bi-boxes"></i> Platforms</a>
-                                <a class="dropdown-item" asp-controller="Publishers" asp-action="Index"><i class="bi bi-diagram-3"></i> Publishers</a>
-                                <a class="dropdown-item" asp-controller="Developers" asp-action="Index"><i class="bi bi-code-slash"></i> Developers</a>
-                            </div>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            @*Management dropdown*@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear"></i> Management
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Platforms" asp-action="Index"><i class="bi bi-boxes"></i> Platforms</a>
+                                    <a class="dropdown-item" asp-controller="Publishers" asp-action="Index"><i class="bi bi-diagram-3"></i> Publishers</a>
+                                    <a class="dropdown-item" asp-controller="Developers" asp-action="Index"><i class="bi bi-code-slash"></i> Developers</a>
+                                </div>
+                            </li>
+                        }
 
                     </ul>
 

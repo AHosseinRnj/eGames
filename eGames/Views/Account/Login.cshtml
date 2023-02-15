@@ -1,0 +1,37 @@
+﻿@model LoginVM
+@using eGames.Data.ViewModels
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <h1 class="text-center mb-4">Login</h1>
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+                    <input type="email" asp-for="EmailAddress" class="form-control" />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label"><i class="bi bi-lock-fill me-2"></i>Password</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Login
+                    </button>
+                    <a class="btn btn-secondary" asp-controller="Games" asp-action="Index">
+                        <i class="bi bi-x-circle-fill me-2"></i
+                        >Cancel
+                    </a>             
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

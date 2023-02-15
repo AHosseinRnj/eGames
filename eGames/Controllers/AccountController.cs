@@ -1,4 +1,5 @@
 ﻿using eGames.Data;
+using eGames.Data.ViewModels;
 using eGames.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,9 @@ namespace eGames.Controllers
             _appDbContext = appDbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
-            return View();
+            return View(new LoginVM());
         }
     }
 }

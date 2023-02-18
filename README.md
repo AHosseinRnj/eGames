@@ -21,13 +21,6 @@ This web application demonstrates the following features:
 
 ### Home
 
-<style>
-  .picture img {
-    max-width: 800px;
-    max-height: 800px;
-  }
-</style>
-
 <div class="picture">
   <img src="https://img001.prntscr.com/file/img001/rlAnvnwWTruYgENfkP5Big.png" alt="Home Picture">
 </div>
@@ -46,7 +39,7 @@ This web application demonstrates the following features:
 
 ## Credentials
 
-#### You can find credentials in [`AppDbInitializer.cs`](https://github.com/AHosseinRnj/eGames/blob/2d0b3a6afddd98cf72e84e9ce0c916d39ab71654/eGames/Data/AppDbInitializer.cs#L185) and change them as you wish
+You can find credentials in [`AppDbInitializer.cs`](https://github.com/AHosseinRnj/eGames/blob/2d0b3a6afddd98cf72e84e9ce0c916d39ab71654/eGames/Data/AppDbInitializer.cs#L185) and change them as you wish
 
 ### Admin user
 
